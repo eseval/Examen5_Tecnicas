@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="Tragamonedas">
+<head>
+    <meta charset="UTF-8">
+    <title>Máquina Tragamonedas</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/simbolo.js"></script>
+    <script src="js/tragamonedas.js"></script>
+</head>
+<body ng-controller="ControladorTragamonedas">
+
+<div id="titulo">
+    <h1>MÁQUINA TRAGAMONEDAS</h1>
+</div>
+
+<div id="mesa">
+    <div class="carretes">
+        <div class="carrete" ng-repeat="carrete in carretes">
+            <img ng-src="{{carrete.getImagen()}}"
+                 alt="{{carrete.getNombre()}}"
+                 ng-class="{'girando': girando}" src="">
+        </div>
+    </div>
+
+    <!-- Resultado -->
+    <div class="resultado" ng-if="resultado">
+        <h2 ng-class="{'ganaste': resultado=='GANASTE',
+                           'casi': resultado=='CASI',
+                           'perdiste': resultado=='PERDISTE'}">
+            {{resultado}}
+        </h2>
+    </div>
+
+    <!-- Botón girar -->
+    <div class="botones">
+        <button class="boton" ng-click="girar()" ng-disabled="girando">
+            {{girando ? 'GIRANDO...' : 'GIRAR'}}
+        </button>
+        <button class="boton boton-reiniciar" ng-click="reiniciar()">
+            REINICIAR
+        </button>
+    </div>
+</div>
+
+<!-- Tabla de estadísticas -->
+<div id="estadisticas">
+    <h3>Estadísticas</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Resultado</th>
+            <th>Cantidad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Ganadas (3 iguales)</td>
+            <td>{{stats.ganadas}}</td>
+        </tr>
+        <tr>
+            <td>Casi (2 iguales)</td>
+            <td>{{stats.casi}}</td>
+        </tr>
+        <tr>
+            <td>Pérdidas (diferentes)</td>
+            <td>{{stats.perdidas}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
